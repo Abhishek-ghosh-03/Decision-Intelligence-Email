@@ -1,4 +1,4 @@
-import axios from "axios";
+import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
@@ -22,7 +22,8 @@ export default function LandingPage() {
 
     const handleGetStarted = async () => {
         try {
-            const res = await axios.get(import.meta.env.VITE_API_URL);
+            const res = await API.get("/start");
+
             if (res.data.success) {
                 navigate("/dashboard");
             }
@@ -72,11 +73,11 @@ export default function LandingPage() {
 
     return (
         <div className="bg-[#0f172a] text-gray-900">
-            
+
             <header className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-            
+
                     <a href="/" className="flex items-center gap-3 group">
                         <div className="w-10 h-10 bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition">
                             <span className="text-white font-bold text-base">DI</span>
@@ -92,7 +93,7 @@ export default function LandingPage() {
                         </div>
                     </a>
 
-            
+
                     <div className="hidden md:flex items-center gap-8">
                         {["Features", "How it works", "Pricing"].map((item, i) => (
                             <a
@@ -108,11 +109,11 @@ export default function LandingPage() {
                 </div>
             </header>
 
-            
+
             <section className="relative min-h-screen pt-32 pb-20 px-6 flex items-center overflow-hidden">
                 <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
 
-            
+
                     <div className="space-y-8">
                         <div className="inline-block">
                             <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 border border-blue-300 rounded-full">
@@ -157,12 +158,12 @@ export default function LandingPage() {
                                 ))}
                             </div>
                             <p className="text-sm text-gray-500">
-                                <span className="font-semibold text-white">Join Now</span> 
+                                <span className="font-semibold text-white">Join Now</span>
                             </p>
                         </div>
                     </div>
 
-            
+
                     <div className="relative hidden lg:block h-[600px]">
 
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-200 to-cyan-100 blur-3xl rounded-full" />
@@ -195,7 +196,7 @@ export default function LandingPage() {
                     </div>
                 </div>
             </section>
-            
+
             <section className="py-20 px-6 bg-[#0f172a]">
                 <div className="max-w-5xl mx-auto text-center">
 
@@ -214,16 +215,16 @@ export default function LandingPage() {
                     </video>
                 </div>
             </section>
-            
+
             <section className="py-24 px-6">
                 <div className="max-w-4xl mx-auto">
-                <h1 className="text-white text-sm font-bold flex justify-center">__This is the testing phase so only the admin user can access the application.__</h1>
+                    <h1 className="text-white text-sm font-bold flex justify-center">__This is the testing phase so only the admin user can access the application.__</h1>
                     <br></br>
                     <h2 className="text-white text-4xl font-bold text-center mb-12 text-transparent bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 bg-clip-text animate-pulse">
                         Features
                     </h2>
 
-            
+
                     <div className="space-y-4 md:hidden">
                         {features.map((f, i) => {
                             const Icon = f.icon;
@@ -260,7 +261,7 @@ export default function LandingPage() {
                         })}
                     </div>
 
-            
+
                     <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {features.map((f, i) => {
                             const Icon = f.icon;
@@ -285,7 +286,7 @@ export default function LandingPage() {
                 </div>
             </section>
 
-            
+
             <section className="relative py-16 md:py-32 px-6">
                 <div className="max-w-4xl mx-auto">
 
@@ -325,7 +326,7 @@ export default function LandingPage() {
                 </div>
             </section>
 
-            
+
             <footer className="border-t py-12 px-6 bg-gray-50">
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
 
