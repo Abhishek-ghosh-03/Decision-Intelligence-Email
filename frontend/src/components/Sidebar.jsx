@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import {
   Inbox,
-  CheckCircle,
-  ListTodo,
   AlertTriangle,
   Clock,
-  FileText
+  FileText,
+  User2
 } from "lucide-react";
 
 export default function Sidebar({ active, setActive , triggerRefresh }) {
@@ -27,13 +26,10 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
 
   const menu = [
     { name: "Inbox", icon: Inbox },
-    { name: "Decisions", icon: CheckCircle },
-    { name: "Tasks", icon: ListTodo },
-    { name: "Risks", icon: AlertTriangle },
     { name: "Follow-ups", icon: Clock },
     { name: "Priority", icon: AlertTriangle },
     { name: "Templates", icon: FileText } ,
-    { name: "Groups" , icon: ListTodo}
+    { name: "Groups" , icon: User2}
   ];
   const handleSync = async () => {
     try {
@@ -41,8 +37,7 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
 
       alert("✅ Emails synced!");
 
-      // 🔥 IMPORTANT: refresh inbox
-      // window.location.reload();
+      
       triggerRefresh();
 
     } catch (err) {
@@ -53,7 +48,7 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
   return (
     <div className="w-64 h-screen bg-[#0f172a] text-white flex flex-col justify-between p-4">
 
-      {/* LOGO */}
+      
       <div>
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold">
@@ -65,7 +60,7 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
           </div>
         </div>
 
-        {/* MENU */}
+      
         <div className="space-y-2">
           {menu.map((item) => {
             const Icon = item.icon;
@@ -103,7 +98,7 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
         </div>
       </div>
 
-      {/* FOOTER */}
+      
       <div className="text-xs text-gray-500 space-y-2">
         <button
           onClick={handleSync}

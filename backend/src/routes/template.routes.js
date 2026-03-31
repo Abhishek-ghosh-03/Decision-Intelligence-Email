@@ -4,7 +4,7 @@ import { Template } from "../modules/template.model.js";
 const router = express.Router();
 
 
-// ✅ CREATE TEMPLATE
+
 router.post("/", async (req, res) => {
   try {
     const template = await Template.create(req.body);
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 });
 
 
-// ✅ GET ALL TEMPLATES
+
 router.get("/", async (req, res) => {
   try {
     const templates = await Template.find().sort({ createdAt: -1 });
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 });
 
 
-// ✅ UPDATE TEMPLATE
+
 router.put("/:id", async (req, res) => {
   try {
     const updated = await Template.findByIdAndUpdate(
@@ -45,7 +45,6 @@ router.put("/:id", async (req, res) => {
 });
 
 
-// ✅ DELETE TEMPLATE
 router.delete("/:id", async (req, res) => {
   try {
     await Template.findByIdAndDelete(req.params.id);

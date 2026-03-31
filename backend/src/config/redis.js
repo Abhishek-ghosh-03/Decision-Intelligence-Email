@@ -6,10 +6,10 @@ export const redis = new Redis({
   port: ENV.REDIS_PORT,
   maxRetriesPerRequest: null, 
 });
-redis.on("connect", () => {
-  console.log("🟢 Redis connected");
-});
+// redis.on("connect", () => {
+//   console.log("🟢 Redis connected");
+// });
 
-redis.on("error", (err) => {
-  console.error("🔴 Redis error:", err.message);
-});
+// redis.on("error", (err) => {
+//   console.error("🔴 Redis error:", err.message);
+// });

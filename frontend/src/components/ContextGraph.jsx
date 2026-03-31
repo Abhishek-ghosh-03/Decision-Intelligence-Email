@@ -93,7 +93,7 @@ export default function ContextGraph({ email, onClose }) {
     transform transition-transform duration-200 ease-out
     translate-x-0 animate-slide-in rounded">
 
-                {/* HEADER */}
+                
                 <div className="flex justify-between items-center mb-3">
                     <h2 className="font-semibold">✨ AI Intelligence</h2>
                     <button onClick={onClose}>
@@ -101,7 +101,7 @@ export default function ContextGraph({ email, onClose }) {
                     </button>
                 </div>
 
-                {/* GRAPH */}
+                
                 <div style={{ height: "90%" }}>
                     <ReactFlow nodes={elements.filter(e => e.position)} edges={elements.filter(e => !e.position)}>
                         <Background />
@@ -112,3 +112,4 @@ export default function ContextGraph({ email, onClose }) {
         </div>
     );
 }
+

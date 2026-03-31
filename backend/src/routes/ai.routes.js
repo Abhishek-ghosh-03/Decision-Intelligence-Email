@@ -13,7 +13,6 @@ const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
 });
 
-// ✅ GENERATE REPLIES
 router.post("/reply/:emailId", async (req, res) => {
   try {
     const { emailId } = req.params;
@@ -69,7 +68,7 @@ Return JSON:
 
     let content = response.choices[0].message.content;
 
-    // clean markdown
+    
     content = content.replace(/```json|```/g, "").trim();
 
     const data = JSON.parse(content);

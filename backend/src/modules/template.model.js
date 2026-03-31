@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const templateSchema = new mongoose.Schema({
-  name: String,            // Professional, Friendly
+  name: String,            
   greeting: String,
   tone: String,
   closing: String,

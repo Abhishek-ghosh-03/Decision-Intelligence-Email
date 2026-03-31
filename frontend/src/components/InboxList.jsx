@@ -47,7 +47,8 @@ export default function InboxList({ onSelect, active, refresh }) {
         </p>
       </div>
 
-      <div className="h-full overflow-y-auto bg-gray-100 p-0 space-y-2">
+
+      <div className="space-y-2">
         {emails.length === 0 ? (
           <p>No emails found</p>
         ) : (

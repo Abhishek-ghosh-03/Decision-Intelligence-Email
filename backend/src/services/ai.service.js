@@ -81,11 +81,9 @@ ${email.body}
       return;
     }
 
-    console.log("✅ AI OUTPUT:", data);
+    // console.log("✅ AI OUTPUT:", data);
 
-    /* =========================
-       🔥 SAVE TASKS
-    ========================= */
+  
     for (const task of data.tasks || []) {
       await Task.create({
         emailId,
@@ -164,8 +162,8 @@ ${email.body}
 
     await email.save();
 
-    console.log("🎯 PRIORITY:", priorityScore);
-    console.log("📩 FOLLOW-UP:", requiresReply);
+    // console.log("🎯 PRIORITY:", priorityScore);
+    // console.log("📩 FOLLOW-UP:", requiresReply);
 
   } catch (err) {
     console.error("❌ AI PROCESS ERROR:", err.message);

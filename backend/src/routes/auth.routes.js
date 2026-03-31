@@ -13,10 +13,9 @@ router.get("/google/callback", async (req, res) => {
   const { code } = req.query;
   
   const tokens = await getTokens(code);
-  console.log("ACCESS TOKEN:", tokens.access_token);
   setAccessToken(tokens.access_token);
   await User.findOneAndUpdate(
-  // ✅ Upsert instead of create
+  
     { email: "test@gmail.com" },
     {
       accessToken: tokens.access_token,
