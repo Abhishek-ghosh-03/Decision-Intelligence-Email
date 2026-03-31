@@ -5,7 +5,7 @@ export default function FollowUps({ setSelectedEmail }) {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-    API.get("/email/followups")
+    API.get("api/email/followups")
       .then(res => {
         const sorted = res.data.sort(
           (a, b) => b.followUpScore - a.followUpScore

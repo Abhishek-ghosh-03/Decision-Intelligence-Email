@@ -114,7 +114,7 @@ export default function EmailView({ email }) {
 
     const fetchData = async () => {
       try {
-        const t = await API.get(`/email/tasks/${email._id}`);
+        const t = await API.get(`/api/email/tasks/${email._id}`);
         setTasks(t.data || []);
       } catch (err) {
         console.error(err);

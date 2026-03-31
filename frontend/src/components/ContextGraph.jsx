@@ -12,7 +12,7 @@ export default function ContextGraph({ email, onClose }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await API.get(`/email/insight/${email._id}`);
+            const res = await API.get(`/api/email/insight/${email._id}`);
             const data = res.data;
 
             const nodes = [

@@ -13,7 +13,7 @@ export default function Templates() {
 
   const fetchTemplates = async () => {
     try {
-      const res = await API.get("/template");
+      const res = await API.get("/api/template");
       setTemplates(res.data);
     } catch (err) {
       console.error(err);

@@ -9,13 +9,13 @@ export default function InboxList({ onSelect, active, refresh }) {
       let res;
 
       if (active === "Inbox") {
-        res = await API.get("/email");
+        res = await API.get("/api/email");
       }
       else if (active === "Priority") {
-        res = await API.get("/email/priority");
+        res = await API.get("/api/email/priority");
       }
       else if (active === "Follow-ups") {
-        res = await API.get("/email/followups");
+        res = await API.get("/api/email/followups");
       }
 
       console.log("ACTIVE TAB:", active);

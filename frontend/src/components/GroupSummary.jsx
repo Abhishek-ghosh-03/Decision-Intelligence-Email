@@ -12,7 +12,7 @@ export default function GroupSummary({ group }) {
   const fetchSummary = async () => {
     try {
       setLoading(true);
-      const res = await API.get(`/email/groups/${group._id}/summary`);
+      const res = await API.get(`/api/email/groups/${group._id}/summary`);
       setSummary(res.data);
     } catch (err) {
       console.error(err);

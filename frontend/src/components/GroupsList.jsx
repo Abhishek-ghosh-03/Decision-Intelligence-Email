@@ -10,7 +10,7 @@ export default function GroupsList({ onSelect, selectedGroup }) {
 
   const fetchGroups = async () => {
     try {
-      const res = await API.get("/email/groups");
+      const res = await API.get("/api/email/groups");
       setGroups(res.data || []);
     } catch (err) {
       console.error(err);

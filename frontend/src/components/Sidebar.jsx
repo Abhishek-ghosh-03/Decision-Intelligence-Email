@@ -14,7 +14,7 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res = await API.get("/email/followups/count");
+        const res = await API.get("/api/email/followups/count");
         setFollowUpCount(res.data.count || 0);
       } catch (err) {
         console.error(err);

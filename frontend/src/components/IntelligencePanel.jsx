@@ -15,9 +15,9 @@ export default function IntelligencePanel({ emailId }) {
     const fetchData = async () => {
       try {
         const [dRes, tRes, rRes] = await Promise.all([
-          API.get(`/email/decisions/${emailId}`),
-          API.get(`/email/tasks/${emailId}`),
-          API.get(`/email/risks/${emailId}`),
+          API.get(`/api/email/decisions/${emailId}`),
+          API.get(`/api/email/tasks/${emailId}`),
+          API.get(`/api/email/risks/${emailId}`),
         ]);
 
         setDecisions(dRes.data || []);

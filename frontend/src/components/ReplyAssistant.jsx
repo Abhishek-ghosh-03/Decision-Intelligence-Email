@@ -63,7 +63,7 @@ const ReplyAssistant = forwardRef(({ email }, ref) => {
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
-        const res = await API.get("/template"); 
+        const res = await API.get("/api/template"); 
         setTemplates(res.data);
         console.log(res.data);
       } catch (err) {
