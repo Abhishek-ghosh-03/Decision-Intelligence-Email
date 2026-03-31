@@ -22,7 +22,7 @@ export default function LandingPage() {
 
     const handleGetStarted = async () => {
         try {
-            const res = await axios.get("https://decision-intelligence-email.onrender.com");
+            const res = await axios.get("import.meta.env.VITE_API_URL");
             if (res.data.success) {
                 navigate("/dashboard");
             }
