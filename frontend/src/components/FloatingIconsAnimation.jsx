@@ -58,7 +58,7 @@ export default function FloatingIconsAnimation() {
                 </motion.div>
 
                 {/* Central Logo */}
-                <div className="relative z-10 w-28 h-28 bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 rounded-3xl flex items-center justify-center shadow-[0_0_60px_rgba(6,182,212,0.4)] border border-white/20">
+                <div className="relative z-10 w-28 h-28 bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 rounded-3xl flex items-center justify-center shadow-[0_0_60px_rgba(6,182,212,0.4)]">
                     <div className="absolute inset-0 bg-white/20 rounded-3xl blur-md"></div>
                     <span className="relative text-white font-black text-4xl tracking-wider drop-shadow-md">DI</span>
                 </div>
@@ -90,10 +90,10 @@ export default function FloatingIconsAnimation() {
                             transition={{ duration: 4 + (index % 3), repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
                             className="flex flex-col items-center gap-3 group translate-y-[-50%] translate-x-[-50%]"
                         >
-                            <div className={`p-4 rounded-2xl ${item.bg} border border-white/10 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transform transition-transform group-hover:scale-110`}>
+                            <div className={`p-4 rounded-full ${item.bg} backdrop-blur-md transform transition-transform group-hover:scale-110 flex items-center justify-center shadow-[0_0_30px_-5px_currentColor]`}>
                                 <item.Icon className={`w-8 h-8 ${item.color} filter drop-shadow-[0_0_8px_currentColor]`} />
                             </div>
-                            <span className="text-xs font-bold text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 border border-slate-700 px-3 py-1.5 rounded-lg shadow-xl whitespace-nowrap">
+                            <span className="text-xs font-bold text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 border border-slate-200 px-3 py-1.5 rounded-lg shadow-xl whitespace-nowrap">
                                 {item.label}
                             </span>
                         </motion.div>

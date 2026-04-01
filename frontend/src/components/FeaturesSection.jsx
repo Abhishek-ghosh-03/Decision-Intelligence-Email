@@ -79,7 +79,7 @@ export default function FeaturesSection() {
     };
 
     return (
-        <section id="features" className="py-24 px-6 relative z-10 border-t border-white/5">
+        <section id="features" className="py-24 px-6 relative z-10 border-t border-slate-200">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial="hidden"
@@ -94,7 +94,7 @@ export default function FeaturesSection() {
                         </h1>
                     </motion.div>
                     <motion.h2 variants={fadeUp} className="text-slate-500 text-sm font-medium mb-4">__This is the testing phase so only the admin user can access the application.__</motion.h2>
-                    <motion.h2 variants={fadeUp} className="text-4xl lg:text-5xl font-black text-white drop-shadow-sm">
+                    <motion.h2 variants={fadeUp} className="text-4xl lg:text-5xl font-black text-slate-900 drop-shadow-sm">
                         Powerful <span className="text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text">Features</span>
                     </motion.h2>
                 </motion.div>
@@ -153,7 +153,7 @@ export default function FeaturesSection() {
                                 key={i}
                                 variants={fadeUp}
                                 whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-                                className={`group flex relative bg-slate-900/80 backdrop-blur-xl border border-white/5 rounded-2xl hover:bg-slate-800/90 hover:border-white/10 transition-all duration-500 overflow-hidden z-10 shadow-lg ${f.className || ""} ${
+                                className={`group flex relative bg-white backdrop-blur-xl border border-slate-200 rounded-2xl hover:bg-gray-50 hover:border-slate-300 transition-all duration-500 overflow-hidden z-10 shadow-sm hover:shadow-lg ${f.className || ""} ${
                                     isWide ? "flex-col md:flex-row" : "flex-col"
                                 }`}
                             >
@@ -161,36 +161,38 @@ export default function FeaturesSection() {
                                 <div className={`absolute top-0 ${isWide ? 'left-0' : 'right-0'} w-48 h-48 blur-[60px] opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full pointer-events-none z-0`} style={{ backgroundColor: 'currentColor', color: 'gray' }} />
 
                                 {/* Video Highlight Container */}
-                                <div className={`relative overflow-hidden shrink-0 bg-slate-950 z-10 ${
-                                    isWide ? "w-full md:w-[40%] lg:w-[45%] min-h-[160px] border-b md:border-b-0 md:border-r border-white/5" : 
-                                    isLarge ? "w-full h-48 border-b border-white/5" :
-                                    "w-full h-32 md:h-36 border-b border-white/5"
+                                <div className={`relative overflow-hidden shrink-0 bg-slate-50 z-10 ${
+                                    isWide ? "w-full md:w-[40%] lg:w-[45%] min-h-[160px] border-b md:border-b-0 md:border-r border-slate-200" : 
+                                    isLarge ? "w-full h-48 border-b border-slate-200" :
+                                    "w-full h-32 md:h-36 border-b border-slate-200"
                                 }`}>
                                     <video 
-                                        src={f.video} 
+                                        src={`${f.video}?v=1`} 
                                         autoPlay 
                                         loop 
                                         muted 
                                         playsInline 
-                                        className="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                                        crossOrigin="anonymous"
+                                        type="video/mp4"
+                                        className="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none"
                                     />
                                     {/* Subtle Gradient Overlays */}
-                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none" />
-                                    {isWide && <div className="hidden md:block absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-slate-900/80 to-transparent pointer-events-none" />}
+                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
+                                    {isWide && <div className="hidden md:block absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white/80 to-transparent pointer-events-none" />}
                                 </div>
 
                                 <div className={`relative z-20 flex-1 flex flex-col justify-center ${isLarge ? 'p-6' : 'p-5'}`}>
                                     <div className="flex items-center gap-3 mb-3 relative z-10">
-                                        <div className={`relative p-2 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-500 shadow-inner overflow-hidden shrink-0`}>
-                                            <div className={`absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500 blur-md`} style={{ backgroundColor: 'currentColor', color: 'gray' }}></div>
+                                        <div className={`relative p-2 rounded-xl bg-gray-50 border border-slate-200 group-hover:scale-110 transition-transform duration-500 shadow-sm overflow-hidden shrink-0`}>
+                                            <div className={`absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500 blur-md`} style={{ backgroundColor: 'currentColor', color: 'gray' }}></div>
                                             <Icon className={`${f.color} w-5 h-5 relative z-10 filter drop-shadow-[0_0_8px_currentColor]`} />
                                         </div>
-                                        <h3 className={`font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 group-hover:bg-clip-text transition-all leading-tight ${isLarge ? 'text-2xl tracking-tight' : 'text-lg'}`}>
+                                        <h3 className={`font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight ${isLarge ? 'text-2xl tracking-tight' : 'text-lg'}`}>
                                             {f.title}
                                         </h3>
                                     </div>
 
-                                    <p className={`text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors relative z-10 ml-0 ${isLarge ? 'text-base font-medium' : 'text-sm'}`}>
+                                    <p className={`text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors relative z-10 ml-0 ${isLarge ? 'text-base font-medium' : 'text-sm'}`}>
                                         {f.desc}
                                     </p>
                                 </div>

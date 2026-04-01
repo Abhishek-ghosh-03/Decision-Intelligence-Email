@@ -3,6 +3,11 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
 /* 🔥 Thin scrollbar */
 ::-webkit-scrollbar {
