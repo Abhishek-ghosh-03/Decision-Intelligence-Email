@@ -37,6 +37,16 @@ const ReplyAssistant = forwardRef(({ email }, ref) => {
       );
       setShowModal(true);
     },
+    generateReplies: async () => {
+      setLoading(true);
+      try {
+        const res = await API.post(`/api/ai/reply/${email._id}`);
+        setReplies(res.data.replies || []);
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
+    },
   }));
   const [mode, setMode] = useState("reply");
 
@@ -96,10 +106,10 @@ const ReplyAssistant = forwardRef(({ email }, ref) => {
   };
 
   
-  const generateReplies = async () => {
+  const generateRepliesLocal = async () => {
     setLoading(true);
     try {
-      const res = await API.post(`/ai/reply/${email._id}`);
+      const res = await API.post(`/api/ai/reply/${email._id}`);
       setReplies(res.data.replies || []);
     } catch (err) {
       console.error(err);
@@ -142,7 +152,7 @@ const ReplyAssistant = forwardRef(({ email }, ref) => {
         message: selectedReply,
       });
 
-      await API.post("/email/send-reply", {
+      await API.post("/api/email/send-reply", {
         to,
         cc,
         bcc,
@@ -170,7 +180,7 @@ const ReplyAssistant = forwardRef(({ email }, ref) => {
       <div className="flex items-center gap-3 py-5">
 
         <button
-          onClick={generateReplies}
+          onClick={generateRepliesLocal}
           className="w-[200px] h-[42px] bg-blue-600 text-white px-4 rounded-full font-bold shadow-md flex items-center justify-center"
         >
           ✨AI Reply

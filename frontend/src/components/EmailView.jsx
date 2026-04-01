@@ -33,26 +33,35 @@ function MobileReplyActions({ email }) {
     <div className="space-y-4">
 
       {/* BUTTONS */}
-      <div className="flex gap-3">
-
+      <div className="flex flex-col gap-3">
+        
         <button
-          onClick={() => replyRef.current?.openReply()}
-          className="flex-1 bg-blue-600 text-white py-3 rounded-full font-medium"
+          onClick={() => replyRef.current?.generateReplies()}
+          className="w-full bg-blue-600 text-white py-3 rounded-full font-bold shadow-md flex items-center justify-center gap-2"
         >
-          Reply
+          ✨ AI Reply
         </button>
 
-        <button
-          onClick={() => replyRef.current?.openForward()}
-          className="flex-1 bg-gray-200 py-3 rounded-full font-medium"
-        >
-          Forward
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={() => replyRef.current?.openReply()}
+            className="flex-1 bg-gray-200 py-3 rounded-full font-bold shadow-sm flex items-center justify-center text-gray-800"
+          >
+            Reply
+          </button>
+
+          <button
+            onClick={() => replyRef.current?.openForward()}
+            className="flex-1 bg-gray-200 py-3 rounded-full font-bold shadow-sm flex items-center justify-center text-gray-800"
+          >
+            Forward
+          </button>
+        </div>
 
       </div>
 
       
-      <div className="hidden">
+      <div className="[&>div>div:first-child]:hidden">
         <ReplyAssistant ref={replyRef} email={email} />
       </div>
 
