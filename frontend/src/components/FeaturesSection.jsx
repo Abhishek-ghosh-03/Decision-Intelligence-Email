@@ -93,7 +93,7 @@ export default function FeaturesSection() {
                             <Shield className="w-3 h-3" /> Early Access
                         </h1>
                     </motion.div>
-                    <motion.h2 variants={fadeUp} className="text-slate-500 text-sm font-medium mb-4">__This is the testing phase so only the admin user can access the application.__</motion.h2>
+                    <motion.h2 variants={fadeUp} className="text-slate-500 text-sm font-medium mb-4">This is the testing phase so only the admin user can access the application.</motion.h2>
                     <motion.h2 variants={fadeUp} className="text-4xl lg:text-5xl font-black text-slate-900 drop-shadow-sm">
                         Powerful <span className="text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text">Features</span>
                     </motion.h2>
@@ -167,15 +167,16 @@ export default function FeaturesSection() {
                                     "w-full h-32 md:h-36 border-b border-slate-200"
                                 }`}>
                                     <video 
-                                        src={`${f.video}?v=1`} 
                                         autoPlay 
                                         loop 
                                         muted 
                                         playsInline 
+                                        preload="metadata"
                                         crossOrigin="anonymous"
-                                        type="video/mp4"
                                         className="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none"
-                                    />
+                                    >
+                                        <source src={f.video} type="video/mp4" />
+                                    </video>
                                     {/* Subtle Gradient Overlays */}
                                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
                                     {isWide && <div className="hidden md:block absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white/80 to-transparent pointer-events-none" />}

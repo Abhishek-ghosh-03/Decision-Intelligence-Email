@@ -178,20 +178,7 @@ export default function LandingPage() {
                         </motion.div>
 
                         <motion.div variants={fadeUp} className="flex items-center gap-4 pt-4 border-t border-slate-200/5">
-                            <div className="flex -space-x-3">
-                                {[
-                                    "https://i.pravatar.cc/100?img=11",
-                                    "https://i.pravatar.cc/100?img=12",
-                                    "https://i.pravatar.cc/100?img=13",
-                                    "https://i.pravatar.cc/100?img=14"
-                                ].map((src, i) => (
-                                    <img key={i} src={src} alt="User" className="w-10 h-10 rounded-full border-2 border-slate-900 shadow-sm" />
-                                ))}
-                            </div>
-                            <div className="text-sm font-medium">
-                                <span className="text-slate-900 block">Trusted by 2,000+</span>
-                                <span className="text-slate-500">professionals worldwide</span>
-                            </div>
+                            
                         </motion.div>
                     </motion.div>
 
@@ -298,7 +285,7 @@ export default function LandingPage() {
                             />
 
                             <motion.img
-                                src="/ss.png"
+                                src="/ai_graph.png"
                                 alt="App Screenshot Right"
                                 animate={{ y: [0, 25, 0], x: [0, -15, 0], rotate: [6, 2, 6] }}
                                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -311,6 +298,9 @@ export default function LandingPage() {
                                 autoPlay
                                 muted
                                 loop
+                                playsInline
+                                preload="metadata"
+                                crossOrigin="anonymous"
                             >
                                 <source src="/video/samplevideo.mp4" type="video/mp4" />
                             </video>
@@ -356,9 +346,9 @@ export default function LandingPage() {
                     <div className="relative w-full max-w-7xl h-full flex items-center justify-center perspective-1000">
                         {/* The Slides */}
                         {[
-                            { title: "Command Center", desc: "Your intelligent overview" },
-                            { title: "Automated Insights", desc: "Decisions extracted instantly" },
-                            { title: "Smart Action Items", desc: "Never miss a follow-up" }
+                            { title: "Command Center", desc: "Your intelligent overview", img: "/ss.png" },
+                            { title: "Automated Insights", desc: "Decisions extracted instantly", img: "/ai_insights.png" },
+                            { title: "Smart Action Items", desc: "Never miss a follow-up", img: "/sidebar.png" }
                         ].map((page, idx) => {
                             const isActive = idx === activeSlide;
                             const isPrev = idx === (activeSlide - 1 + 3) % 3;
@@ -421,7 +411,7 @@ export default function LandingPage() {
                                                     <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-emerald-500/80"></div>
                                                 </div>
                                                 <div className="relative aspect-video">
-                                                    <img src="/ss.png" alt={`${page.title} Desktop`} className="w-full h-full object-cover opacity-90 object-top" />
+                                                    <img src={page.img} alt={`${page.title} Desktop`} className="w-full h-full object-cover opacity-90 object-top" />
                                                     <div className="absolute inset-0 border border-slate-200/5 pointer-events-none"></div>
                                                 </div>
                                             </div>
@@ -434,7 +424,7 @@ export default function LandingPage() {
                                         <div className="relative rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border-[2px] md:border-[4px] border-slate-800 shadow-[0_20px_40px_rgba(0,0,0,0.6)] bg-white aspect-[9/19]">
                                             {/* Dynamic Island / Notch */}
                                             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-3 md:h-5 bg-gray-100 rounded-b-xl md:rounded-b-2xl z-20"></div>
-                                            <img src="/ss.png" alt={`${page.title} Mobile`} className="w-full h-full object-cover opacity-90 scale-[1.02] object-left-top" />
+                                            <img src={page.img} alt={`${page.title} Mobile`} className="w-full h-full object-cover opacity-90 scale-[1.02] object-left-top" />
                                             {/* Reflection Overlay */}
                                             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none"></div>
                                         </div>
