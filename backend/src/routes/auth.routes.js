@@ -25,7 +25,8 @@ router.get("/google/callback", async (req, res) => {
     { upsert: true, returnDocument: 'after' }
   );
   
-  res.redirect("http://localhost:5173/auth-success");
+  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+  res.redirect(`${frontendUrl}/auth-success`);
 });
 
 export default router;
