@@ -3,7 +3,7 @@ import IntelligencePanel from "./IntelligencePanel";
 import ReplyAssistant from "./ReplyAssistant";
 import ContextGraph from "./ContextGraph";
 import { useEffect, useState, useRef } from "react";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 function highlightContent(body, tasks = []) {
   if (!body) return "";
@@ -78,37 +78,57 @@ function MobileTabs({ email }) {
   return (
     <div className="mt-4">
 
-      <div className="flex bg-gray-100 rounded-full p-1 mb-4">
+      <div className="flex bg-gray-100 rounded-full p-1 mb-4 relative z-0">
         <button
           onClick={() => setActiveTab("ai")}
-          className={`flex-1 py-2 text-sm rounded-full ${
-            activeTab === "ai"
-              ? "bg-white shadow font-medium"
-              : "text-gray-500"
+          className={`flex-1 py-2 text-sm rounded-full relative z-10 transition-colors duration-200 ${
+            activeTab === "ai" ? "font-medium text-gray-900" : "text-gray-500"
           }`}
         >
+          {activeTab === "ai" && (
+            <motion.div layoutId="pill" className="absolute inset-0 bg-white rounded-full shadow-sm z-[-1]" />
+          )}
           ✨AI
         </button>
 
         <button
           onClick={() => setActiveTab("reply")}
-          className={`flex-1 py-2 text-sm rounded-full ${
-            activeTab === "reply"
-              ? "bg-white shadow font-medium"
-              : "text-gray-500"
+          className={`flex-1 py-2 text-sm rounded-full relative z-10 transition-colors duration-200 ${
+            activeTab === "reply" ? "font-medium text-gray-900" : "text-gray-500"
           }`}
         >
+          {activeTab === "reply" && (
+            <motion.div layoutId="pill" className="absolute inset-0 bg-white rounded-full shadow-sm z-[-1]" />
+          )}
           Reply
         </button>
       </div>
 
-      {activeTab === "ai" && (
-        <IntelligencePanel emailId={email._id} />
-      )}
-
-      {activeTab === "reply" && (
-        <MobileReplyActions email={email} />
-      )}
+      <div className="relative">
+        <AnimatePresence mode="wait">
+          {activeTab === "ai" ? (
+            <motion.div
+              key="ai"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <IntelligencePanel emailId={email._id} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="reply"
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MobileReplyActions email={email} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -133,12 +153,22 @@ export default function EmailView({ email }) {
     fetchData();
   }, [email]);
 
-  if (!email) return <p className="p-4">Select an email</p>;
+  if (!email) return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-10 text-center text-gray-500 h-full flex items-center justify-center">
+      Select an email to view
+    </motion.div>
+  );
 
   const highlightedBody = highlightContent(email.body, tasks);
 
   return (
-    <div className="flex flex-col h-full min-h-0">
+    <motion.div 
+      key={email._id}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="flex flex-col h-full min-h-0"
+    >
 
 
       <div className="md:hidden sticky top-0 z-10 bg-white border-b px-4 py-3">
@@ -211,6 +241,6 @@ export default function EmailView({ email }) {
           onClose={() => setShowGraph(false)}
         />
       )}
-    </div>
+    </motion.div>
   );
 }

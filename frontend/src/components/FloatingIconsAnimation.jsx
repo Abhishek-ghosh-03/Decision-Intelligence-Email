@@ -9,7 +9,7 @@ import {
     Clock 
 } from 'lucide-react';
 
-export default function FloatingIconsAnimation() {
+export default function FloatingIconsAnimation({ className = "h-[500px]" }) {
     const floatingVariant = (duration) => ({
         animate: {
             y: [0, -20, 0],
@@ -31,7 +31,7 @@ export default function FloatingIconsAnimation() {
     ];
 
     return (
-        <section className="relative w-full max-w-5xl mx-auto h-[500px] flex items-center justify-center overflow-hidden z-10 py-10">
+        <section className={`relative w-full max-w-5xl mx-auto flex items-center justify-center overflow-hidden z-10 py-10 ${className}`}>
             {/* Central DI Icon & Glowing Rings */}
             <motion.div 
                 variants={floatingVariant(4)}

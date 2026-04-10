@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import API from "../services/api";
 
 export default function GroupSummary({ group }) {
@@ -39,33 +40,46 @@ export default function GroupSummary({ group }) {
       </div>
 
       {loading ? (
-        <p className="text-sm text-gray-400">🧠 Analyzing...</p>
+        <div className="space-y-4">
+          <div className="h-20 bg-gray-200 rounded-xl w-full animate-pulse shadow-sm"></div>
+          <div className="h-14 bg-green-50 rounded-xl w-full animate-pulse"></div>
+          <div className="h-14 bg-blue-50 rounded-xl w-full animate-pulse"></div>
+          <div className="h-14 bg-red-50 rounded-xl w-full animate-pulse"></div>
+        </div>
       ) : (
-        <>
-          
-          <div className="p-3 rounded-xl bg-gray-50 border text-sm">
+        <motion.div
+           initial="hidden" animate="visible"
+           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+           className="space-y-4"
+        >
+          <motion.div variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }} className="p-4 rounded-xl bg-gradient-to-br from-indigo-50 to-white shadow-sm border border-indigo-100 text-sm text-gray-700 leading-relaxed font-medium">
             {summary?.overview ?? "No summary available"}
-          </div>
+          </motion.div>
 
-          
-          <SummaryBlock
-            title="✅ Decisions"
-            data={summary?.decisions}
-            color="green"
-          />
+          <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}>
+            <SummaryBlock
+              title="✅ Decisions"
+              data={summary?.decisions}
+              color="green"
+            />
+          </motion.div>
 
-          <SummaryBlock
-            title="📌 Tasks"
-            data={summary?.tasks}
-            color="blue"
-          />
+          <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}>
+            <SummaryBlock
+              title="📌 Tasks"
+              data={summary?.tasks}
+              color="blue"
+            />
+          </motion.div>
 
-          <SummaryBlock
-            title="⚠️ Risks"
-            data={summary?.risks}
-            color="red"
-          />
-        </>
+          <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}>
+            <SummaryBlock
+              title="⚠️ Risks"
+              data={summary?.risks}
+              color="red"
+            />
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );

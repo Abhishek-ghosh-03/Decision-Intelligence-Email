@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import { User } from "../modules/auth/user.model.js";
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
@@ -8,7 +9,6 @@ export let ACCESS_TOKEN = "";
 
 export const setAccessToken = (token) => {
   ACCESS_TOKEN = token;
-  console.log(  "ACCESS TOKEN SET ",ACCESS_TOKEN);
 };
 
 const oauth2Client = new google.auth.OAuth2(
@@ -39,6 +39,32 @@ export const getGmailClient = (accessToken) => {
   return google.gmail({ version: "v1", auth: oauth2Client });
 };
 
+export const getGmailClientForUser = async () => {
+  const user = await User.findOne({ email: "test@gmail.com" });
+  if (!user || (!user.accessToken && !user.refreshToken)) {
+    throw new Error("No authenticated user found. Please login first.");
+  }
+
+  const client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+  );
+
+  client.setCredentials({
+    access_token: user.accessToken,
+    refresh_token: user.refreshToken,
+  });
+
+  client.on('tokens', async (tokens) => {
+    const updateData = {};
+    if (tokens.access_token) updateData.accessToken = tokens.access_token;
+    if (tokens.refresh_token) updateData.refreshToken = tokens.refresh_token;
+    await User.findOneAndUpdate({ email: "test@gmail.com" }, updateData);
+  });
+
+  return google.gmail({ version: "v1", auth: client });
+};
 
 function decodeBase64(data) {
   return Buffer.from(data.replace(/-/g, "+").replace(/_/g, "/"), "base64")

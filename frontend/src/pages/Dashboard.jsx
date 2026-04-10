@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft } from "lucide-react";
+
 import { AnimatePresence, motion } from "framer-motion";
 import Sidebar from "../components/Sidebar";
 import InboxList from "../components/InboxList";
@@ -120,7 +120,6 @@ export default function Dashboard() {
                           onClick={() => setSelectedGroup(null)}
                           className="flex items-center gap-1 text-gray-700 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
                         >
-                          <ArrowLeft size={16} />
                           Back
                         </button>
                         <span className="text-sm font-medium text-gray-800 truncate">
@@ -182,10 +181,10 @@ export default function Dashboard() {
           ) : (
 
             <motion.div
-              key="inbox-tab"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              key={active}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
               transition={{ duration: 0.2 }}
               className="flex flex-1 overflow-hidden"
             >
@@ -206,7 +205,6 @@ export default function Dashboard() {
                           onClick={() => setSelectedEmail(null)}
                           className="flex items-center gap-1 text-gray-700 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
                         >
-                          <ArrowLeft size={16} />
                           Back
                         </button>
 

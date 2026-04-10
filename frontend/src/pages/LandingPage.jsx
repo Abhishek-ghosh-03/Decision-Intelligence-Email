@@ -37,15 +37,8 @@ export default function LandingPage() {
     const heroY = useTransform(scrollY, [0, 500], [0, 150]);
     const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-    const handleGetStarted = async () => {
-        try {
-            const res = await API.get("/start");
-            if (res.data.success) {
-                navigate("/dashboard");
-            }
-        } catch (err) {
-            console.error(err);
-        }
+    const handleGetStarted = () => {
+        window.location.href = import.meta.env.VITE_API_URL + "/api/auth/google";
     };
 
     // Animation Variants (Superhuman-esque)
@@ -168,7 +161,6 @@ export default function LandingPage() {
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 <span className="relative text-white z-10 flex items-center gap-2">
                                     Get Started
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </span>
                             </button>
 
@@ -300,7 +292,7 @@ export default function LandingPage() {
                                 loop
                                 playsInline
                                 preload="metadata"
-                                crossOrigin="anonymous"
+                                // crossOrigin="anonymous"
                             >
                                 <source src="/video/samplevideo.mp4" type="video/mp4" />
                             </video>

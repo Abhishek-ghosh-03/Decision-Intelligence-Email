@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import API from "../services/api";
 
 export default function IntelligencePanel({ emailId }) {
   const [decisions, setDecisions] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [risks, setRisks] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   const [activeSection, setActiveSection] = useState(null);
 
@@ -13,6 +14,7 @@ export default function IntelligencePanel({ emailId }) {
     if (!emailId) return;
 
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const [dRes, tRes, rRes] = await Promise.all([
           API.get(`/api/email/decisions/${emailId}`),
@@ -25,6 +27,8 @@ export default function IntelligencePanel({ emailId }) {
         setRisks(rRes.data || []);
       } catch (err) {
         console.error("Error fetching intelligence:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -39,80 +43,100 @@ export default function IntelligencePanel({ emailId }) {
   return (
     <div className="bg-gray-50 p-4 md:p-6 rounded-xl border border-gray-200 shadow space-y-4 md:space-y-6">
 
-      <h3 className="font-semibold text-lg">💡 AI Intelligence</h3>
+      <h3 className="font-semibold text-lg flex items-center gap-2">
+        <span className="animate-pulse">💡</span> AI Intelligence
+      </h3>
 
+      {isLoading ? (
+        <div className="space-y-4">
+          <div className="h-24 bg-gray-200 rounded-lg animate-pulse"></div>
+          <div className="h-24 bg-gray-200 rounded-lg animate-pulse delay-75"></div>
+          <div className="h-24 bg-gray-200 rounded-lg animate-pulse delay-150"></div>
+        </div>
+      ) : (
+        <>
+          <div className="md:hidden space-y-3">
 
-      <div className="md:hidden space-y-3">
+            <MobileSection
+              title="✔ Decisions"
+              color="green"
+              data={decisions}
+              field="text"
+              active={activeSection === "decisions"}
+              onToggle={() =>
+                setActiveSection(activeSection === "decisions" ? null : "decisions")
+              }
+              getConfidence={getConfidence}
+            />
 
-        <MobileSection
-          title="✔ Decisions"
-          color="green"
-          data={decisions}
-          field="text"
-          active={activeSection === "decisions"}
-          onToggle={() =>
-            setActiveSection(activeSection === "decisions" ? null : "decisions")
-          }
-          getConfidence={getConfidence}
-        />
+            <MobileSection
+              title="📌 Tasks"
+              color="blue"
+              data={tasks}
+              field="title"
+              active={activeSection === "tasks"}
+              onToggle={() =>
+                setActiveSection(activeSection === "tasks" ? null : "tasks")
+              }
+              getConfidence={getConfidence}
+            />
 
-        <MobileSection
-          title="📌 Tasks"
-          color="blue"
-          data={tasks}
-          field="title"
-          active={activeSection === "tasks"}
-          onToggle={() =>
-            setActiveSection(activeSection === "tasks" ? null : "tasks")
-          }
-          getConfidence={getConfidence}
-        />
+            <MobileSection
+              title="⚠ Risks"
+              color="red"
+              data={risks}
+              field="text"
+              active={activeSection === "risks"}
+              onToggle={() =>
+                setActiveSection(activeSection === "risks" ? null : "risks")
+              }
+              getConfidence={getConfidence}
+            />
 
-        <MobileSection
-          title="⚠ Risks"
-          color="red"
-          data={risks}
-          field="text"
-          active={activeSection === "risks"}
-          onToggle={() =>
-            setActiveSection(activeSection === "risks" ? null : "risks")
-          }
-          getConfidence={getConfidence}
-        />
+          </div>
 
-      </div>
+          <motion.div 
+            initial="hidden" animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+            className="hidden md:block space-y-6"
+          >
 
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+              <Section
+                title="✔ Decisions"
+                color="green"
+                data={decisions}
+                field="text"
+                fallback={0}
+                getConfidence={getConfidence}
+              />
+            </motion.div>
 
-      <div className="hidden md:block space-y-6">
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+              <Section
+                title="📌 Tasks"
+                color="blue"
+                data={tasks}
+                field="title"
+                fallback={0}
+                getConfidence={getConfidence}
+              />
+            </motion.div>
 
-        <Section
-          title="✔ Decisions"
-          color="green"
-          data={decisions}
-          field="text"
-          fallback={0}
-          getConfidence={getConfidence}
-        />
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+              <Section
+                title="⚠ Risks"
+                color="red"
+                data={risks}
+                field="text"
+                fallback={0}
+                getConfidence={getConfidence}
+              />
+            </motion.div>
 
-        <Section
-          title="📌 Tasks"
-          color="blue"
-          data={tasks}
-          field="title"
-          fallback={0}
-          getConfidence={getConfidence}
-        />
-
-        <Section
-          title="⚠ Risks"
-          color="red"
-          data={risks}
-          field="text"
-          fallback={0}
-          getConfidence={getConfidence}
-        />
-
-      </div>
+          </motion.div>
+        </>
+      )}
 
     </div>
   );

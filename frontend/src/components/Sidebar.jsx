@@ -33,7 +33,7 @@ export default function Sidebar({ active, setActive , triggerRefresh }) {
   ];
   const handleSync = async () => {
     try {
-      await API.post("/email/sync");
+      await API.post("/api/email/sync");
 
       alert("✅ Emails synced!");
 

@@ -14,17 +14,18 @@ router.get("/google/callback", async (req, res) => {
   
   const tokens = await getTokens(code);
   setAccessToken(tokens.access_token);
+  const updateData = { accessToken: tokens.access_token };
+  if (tokens.refresh_token) {
+    updateData.refreshToken = tokens.refresh_token;
+  }
+
   await User.findOneAndUpdate(
-  
     { email: "test@gmail.com" },
-    {
-      accessToken: tokens.access_token,
-      refreshToken: tokens.refresh_token
-    },
+    updateData,
     { upsert: true, returnDocument: 'after' }
   );
   
-  res.send("Auth success, you can close this tab");
+  res.redirect("http://localhost:5173/auth-success");
 });
 
 export default router;

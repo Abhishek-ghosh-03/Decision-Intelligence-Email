@@ -5,8 +5,7 @@ import { Task } from "../modules/task/task.model.js";
 import { Decision } from "../modules/decision/decision.model.js";
 import { Risk } from "../modules/risk/risk.model.js";
 import { emailQueue } from "../queues/email.queue.js";
-import { fetchEmailDetails, getGmailClient } from "../services/gmail.service.js";
-import { ACCESS_TOKEN } from "../services/gmail.service.js";
+import { fetchEmailDetails, getGmailClientForUser } from "../services/gmail.service.js";
 import { generateInsightGraph } from "../services/ai.service.js";
 import { openai } from "../config/openrouter.js"; 
 import multer from "multer";
@@ -133,7 +132,7 @@ router.post("/sync", async (req, res) => {
 
   try {
 
-    const gmail = getGmailClient(ACCESS_TOKEN);
+    const gmail = await getGmailClientForUser();
 
     // console.log("📡 Calling Gmail API...");
 
@@ -166,8 +165,10 @@ router.post("/sync", async (req, res) => {
       // console.log("📤 Job added:", email._id);
     }
 
+    res.json({ success: true, message: "Sync completed" });
   } catch (err) {
     console.error("❌ SYNC ERROR:", err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -191,17 +192,7 @@ router.post("/send-reply", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const oAuth2Client = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.REDIRECT_URI
-    );
-
-    oAuth2Client.setCredentials({
-      access_token: ACCESS_TOKEN,
-    });
-
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
+    const gmail = await getGmailClientForUser();
 
     const boundary = "boundary123";
 
